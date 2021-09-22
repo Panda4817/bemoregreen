@@ -1,3 +1,15 @@
+# Be More Green Java Backend
+First website backend written in Java, using Micronaut framework and Maven for packaging.
+
+
+## Testing
+
+Run `./mvnw test`
+
+## Running in localhost
+
+Run `./mvnw mn:run` command which starts the application on port 8080.
+
 ## Micronaut 3.0.1 Documentation
 
 - [User Guide](https://docs.micronaut.io/3.0.1/guide/index.html)

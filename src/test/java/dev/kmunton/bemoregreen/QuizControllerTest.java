@@ -12,17 +12,19 @@ import org.junit.jupiter.api.Test;
 import jakarta.inject.Inject;
 
 @MicronautTest
-public class IndexControllerTest {
+public class QuizControllerTest {
 
     @Inject
     @Client("/")
     HttpClient client;
 
     @Test
-    public void testIndex() {
-        HttpRequest<String> request = HttpRequest.GET("/");
+    public void testGetQuiz() {
+        HttpRequest<String> request = HttpRequest.GET("/quiz");
         String body = client.toBlocking().retrieve(request);
+        Quiz quiz = new Quiz();
+        String expected = quiz.getQuestions();
         assertNotNull(body);
-        assertEquals("Backend is running", body);
+        assertEquals(expected, body);
     }
 }
