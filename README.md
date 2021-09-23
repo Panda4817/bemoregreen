@@ -1,6 +1,7 @@
 # Be More Green Java Backend
-First website backend written in Java, using Micronaut framework and Maven for packaging.
+[![Build Status](https://app.travis-ci.com/Panda4817/bemoregreen.svg?branch=main)](https://travis-ci.com/Panda4817/bemoregreen)
 
+First website backend written in Java, using Micronaut framework and Maven for packaging.
 
 ## Testing
 
