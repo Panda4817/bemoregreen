@@ -1,11 +1,14 @@
 package dev.kmunton.bemoregreen.quiz;
 
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
-import java.util.Scanner;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -18,51 +21,71 @@ public class Quiz {
     private int maxScorePerQuestion = 3;
     private int minScorePerQuestion = 0;
 
-    public Quiz() {
+    private List<String> readTextFromJar(String s) {
+        InputStream is = null;
+        BufferedReader br = null;
+        String line;
+        ArrayList<String> list = new ArrayList<String>();
+        ClassLoader classLoader = getClass().getClassLoader();
         try {
-            ClassLoader classLoader = getClass().getClassLoader();
-            File myQuestionsFile = new File(classLoader.getResource("data/quiz.txt").getFile());
-            Scanner myQuestionsReader = new Scanner(myQuestionsFile);
-            String question = "";
-            ArrayList<String> answers = new ArrayList<String>();
-            ArrayList<Question> allQuestions = new ArrayList<Question>();
-            while (myQuestionsReader.hasNextLine()) {
-                String data = myQuestionsReader.nextLine().strip();
-                if (data == "") {
-                    Question item = new Question(question, answers);
-                    allQuestions.add(item);
-                    answers = new ArrayList<String>();
-                    totalQuestions = totalQuestions + 1;
-                    totalScore = totalScore + maxScorePerQuestion;
-                    continue;
-                } else if (data.endsWith("?")) {
-                    question = data;
-                } else {
-                    answers.add(data);
-                }
+            is = classLoader.getResourceAsStream(s);
+            br = new BufferedReader(new InputStreamReader(is));
+            while (null != (line = br.readLine())) {
+                list.add(line);
             }
-            Question item = new Question(question, answers);
-            allQuestions.add(item);
-            questions.put("data", allQuestions);
-            myQuestionsReader.close();
-            File myColoursFile = new File(classLoader.getResource("data/colours.txt").getFile());
-            Scanner myColoursReader = new Scanner(myColoursFile);
-            int score = 0;
-            ArrayList<String> coloursList = new ArrayList<String>();
-            while (myColoursReader.hasNextLine()) {
-                String[] data = myColoursReader.nextLine().strip().split(",");
-                for (String s : data) {
-                    coloursList.add(s);
-                }
-                colours.put(score, coloursList);
-                coloursList = new ArrayList<String>();
-                score = score + 1;
-            }
-            myColoursReader.close();
-        } catch (FileNotFoundException e) {
+        } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            try {
+                if (br != null)
+                    br.close();
+                if (is != null)
+                    is.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
+        return list;
+    }
 
+    public Quiz() {
+        List<String> myQuestions = readTextFromJar("data/quiz.txt");
+        Iterator<String> it = myQuestions.iterator();
+        String question = "";
+        ArrayList<String> answers = new ArrayList<String>();
+        ArrayList<Question> allQuestions = new ArrayList<Question>();
+        while (it.hasNext()) {
+            String data = it.next().strip();
+            if (data == "") {
+                Question item = new Question(question, answers);
+                allQuestions.add(item);
+                answers = new ArrayList<String>();
+                totalQuestions = totalQuestions + 1;
+                totalScore = totalScore + maxScorePerQuestion;
+                continue;
+            } else if (data.endsWith("?")) {
+                question = data;
+            } else {
+                answers.add(data);
+            }
+        }
+        Question item = new Question(question, answers);
+        allQuestions.add(item);
+        questions.put("data", allQuestions);
+
+        List<String> myColours = readTextFromJar("data/colours.txt");
+        it = myColours.iterator();
+        int score = 0;
+        ArrayList<String> coloursList = new ArrayList<String>();
+        while (it.hasNext()) {
+            String[] data = it.next().strip().split(",");
+            for (String s : data) {
+                coloursList.add(s);
+            }
+            colours.put(score, coloursList);
+            coloursList = new ArrayList<String>();
+            score = score + 1;
+        }
     }
 
     public String getGreenScore(int[] answers) {
