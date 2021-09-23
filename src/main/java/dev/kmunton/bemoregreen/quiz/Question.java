@@ -1,4 +1,4 @@
-package dev.kmunton.bemoregreen;
+package dev.kmunton.bemoregreen.quiz;
 
 import java.util.ArrayList;
 

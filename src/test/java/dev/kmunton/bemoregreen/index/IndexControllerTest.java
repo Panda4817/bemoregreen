@@ -1,4 +1,4 @@
-package dev.kmunton.bemoregreen;
+package dev.kmunton.bemoregreen.index;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -23,6 +23,14 @@ public class IndexControllerTest {
         HttpRequest<String> request = HttpRequest.GET("/");
         String body = client.toBlocking().retrieve(request);
         assertNotNull(body);
-        assertEquals("Backend is running", body);
+        assertEquals("Server is running", body);
+    }
+
+    @Test
+    public void testApiIndex() {
+        HttpRequest<String> request = HttpRequest.GET("/api");
+        String body = client.toBlocking().retrieve(request);
+        assertNotNull(body);
+        assertEquals("API is running", body);
     }
 }

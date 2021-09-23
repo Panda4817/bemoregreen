@@ -1,4 +1,4 @@
-package dev.kmunton.bemoregreen;
+package dev.kmunton.bemoregreen.quiz;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -20,10 +20,21 @@ public class QuizControllerTest {
 
     @Test
     public void testGetQuiz() {
-        HttpRequest<String> request = HttpRequest.GET("/quiz");
+        HttpRequest<String> request = HttpRequest.GET("/api/questions");
         String body = client.toBlocking().retrieve(request);
         Quiz quiz = new Quiz();
         String expected = quiz.getQuestions();
+        assertNotNull(body);
+        assertEquals(expected, body);
+    }
+
+    @Test
+    public void testGetScore() {
+        HttpRequest<String> request = HttpRequest.POST("/api/score", "{\"data\": [0,0,0,0,0,0,0,0]}");
+        String body = client.toBlocking().retrieve(request);
+        Quiz quiz = new Quiz();
+        int[] data = { 0, 0, 0, 0, 0, 0, 0, 0 };
+        String expected = quiz.getGreenScore(data);
         assertNotNull(body);
         assertEquals(expected, body);
     }

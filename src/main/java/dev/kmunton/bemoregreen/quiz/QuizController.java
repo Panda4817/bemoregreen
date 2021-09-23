@@ -1,7 +1,5 @@
-package dev.kmunton.bemoregreen;
+package dev.kmunton.bemoregreen.quiz;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
 
 import io.micronaut.http.MediaType;
@@ -11,16 +9,16 @@ import io.micronaut.http.annotation.Get;
 import io.micronaut.http.annotation.Post;
 import io.micronaut.http.annotation.Produces;
 
-@Controller("/quiz")
+@Controller("/api")
 public class QuizController {
-    @Get
+    @Get("/questions")
     @Produces(MediaType.APPLICATION_JSON)
     public String getQuiz() {
         Quiz quiz = new Quiz();
         return quiz.getQuestions();
     }
 
-    @Post
+    @Post("/score")
     @Produces(MediaType.APPLICATION_JSON)
     public String getScore(@Body Map<String, int[]> data) {
         Quiz quiz = new Quiz();
