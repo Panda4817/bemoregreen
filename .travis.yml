@@ -3,6 +3,7 @@ language: java
 before_deploy: "./mvnw package"
 
 deploy:
+  skip_cleanup: true
   zip_file: "bemoregreen-0.1.jar"
   provider: elasticbeanstalk
   access_key_id: "$ACCESSKEYID"
