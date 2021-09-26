@@ -108,7 +108,7 @@ public class Quiz {
         } else if (score > 6 && score < totalScore) {
             msg = "You are trying to be kind to the planet, which is great. You can be more eco-friendly by looking at the questions you answered with other choices instead of the fourth one.";
         } else {
-            msg = "Fantastic! You are protecting the planet! Why not try to encourage others around you to do the same by sharing this quiz.";
+            msg = "Fantastic! You are trying to protecting the planet! Why not try to encourage others around you to do the same by sharing this quiz.";
         }
         Map<String, String> result = new HashMap<String, String>();
         result.put("score", Integer.toString(score));
