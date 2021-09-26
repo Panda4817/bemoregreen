@@ -1,11 +1,10 @@
 language: java
 
 deploy:
+  skip_cleanup: true
   provider: elasticbeanstalk
-  access_key_id:
-    secure: "$ACCESSKEYID"
-  secret_access_key:
-    secure: "$SECRETACCESSKEY"
+  access_key_id: "$ACCESSKEYID"
+  secret_access_key: "$SECRETACCESSKEY"
   region: "eu-east-2"
   app: "bemoregreen"
   env: "Bemoregreen-env"
