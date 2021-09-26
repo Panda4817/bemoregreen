@@ -2,10 +2,11 @@ language: java
 
 deploy:
   provider: elasticbeanstalk
-  access_key_id: $ACCESSKEYID
+  access_key_id:
+    secure: "$ACCESSKEYID"
   secret_access_key:
     secure: "$SECRETACCESSKEY"
-  region: "eu-west-2"  
+  region: "eu-east-2"
   app: "bemoregreen"
   env: "Bemoregreen-env"
   bucket_name: "elasticbeanstalk-eu-west-2-688957172230"
