@@ -1,3 +1,15 @@
 micronaut:
   application:
     name: bemoregreen
+  server:
+    cors:
+      enabled: true
+      configurations:
+        web:
+          allowedOrigins:
+            - http://localhost:3000
+            - https://bemoregreen.kmunton.dev
+            - https://bemoregreen.netlify.app
+          allowedMethods:
+            - GET
+            - POST
