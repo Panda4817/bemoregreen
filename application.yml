@@ -1,0 +1,12 @@
+micronaut:
+  server:
+    cors:
+      enabled: true
+      configurations:
+        web:
+          allowedOrigins:
+            - http://localhost:3000
+            - https://bemoregreen.kmunton.dev
+          allowedMethods:
+            - GET
+            - POST
