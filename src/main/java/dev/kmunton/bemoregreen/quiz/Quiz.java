@@ -71,6 +71,8 @@ public class Quiz {
         }
         Question item = new Question(question, answers);
         allQuestions.add(item);
+        totalQuestions = totalQuestions + 1;
+        totalScore = totalScore + maxScorePerQuestion;
         questions.put("data", allQuestions);
 
         List<String> myColours = readTextFromJar("data/colours.txt");
